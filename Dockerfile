@@ -3,7 +3,8 @@ ARG  OTEL_VERSION=0.119.0
 WORKDIR /builder
 ENV GOPATH=/usr
 RUN go install go.opentelemetry.io/collector/cmd/builder@v${OTEL_VERSION}
-COPY manifest.yaml .
+# COPY manifest.yaml .
+COPY netmon.yaml ./manifest.yaml
 RUN CGO_ENABLED=0 builder --config=/builder/manifest.yaml --output-path=/builder/otelcol-custom
 
 FROM cgr.dev/chainguard/static:latest

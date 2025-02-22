@@ -1,0 +1,35 @@
+receivers:
+  netflow:
+  #   - scheme: netflow
+  #     port: 2055
+  #     sockets: 16
+  #     workers: 32
+  netflow/sflow:
+  #   - scheme: sflow
+  #     port: 6343
+  #     sockets: 16
+  #     workers: 32
+
+processors:
+  batch:
+    send_batch_size: 2000
+    timeout: 30s
+
+exporters:
+  debug:
+    verbosity: detailed
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+service:
+  extensions: [health_check]
+  pipelines:
+    logs:
+      receivers: [netflow, netflow/sflow]
+      processors: [batch]
+      exporters: [debug]
+  telemetry:
+    logs:
+      level: debug
