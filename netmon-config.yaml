@@ -14,10 +14,21 @@ processors:
   batch:
     send_batch_size: 2000
     timeout: 30s
+  geoip:
+    context: record
+    attributes: [source.address, destination.address]
+    providers:
+      maxmind:
+        database_path: /maxmind-db
 
 exporters:
   debug:
     verbosity: detailed
+  otlp:
+    endpoint: "api.honeycomb.io:443"
+    headers:
+      "x-honeycomb-team": "mrx0kVmkQ0hqCOBH8heJmE"
+      "x-honeycomb-dataset": "netflow"
 
 extensions:
   health_check:
@@ -28,8 +39,8 @@ service:
   pipelines:
     logs:
       receivers: [netflow, netflow/sflow]
-      processors: [batch]
-      exporters: [debug]
+      processors: [geoip, batch]
+      exporters: [debug, otlp]
   telemetry:
     logs:
       level: debug
