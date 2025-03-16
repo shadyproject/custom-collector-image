@@ -9,4 +9,4 @@ RUN CGO_ENABLED=0 builder --config=/builder/manifest.yaml --output-path=/builder
 FROM cgr.dev/chainguard/static:latest
 COPY --from=build /builder/otelcol-custom /
 EXPOSE 4317/tcp 4318/tcp 13133/tcp
-CMD ["/otelcol-custom", "--config=/config.yaml" ]
+CMD ["/otelcol-dump", "--config=/config.yaml" ]

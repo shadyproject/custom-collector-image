@@ -1,11 +1,12 @@
 dist:
-  name: otelcol-custom
+  name: otelcol-dump
   description: Custom
 
 exporters:
   - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.119.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.119.0
 processors:
+  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.119.0
   - gomod: github.com/puckpuck/opentelemetry-collector-extras/metricsasattributesprocessor v0.4.0
 receivers:
   - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.119.0

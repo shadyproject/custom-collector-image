@@ -9,6 +9,9 @@ processors:
 
 exporters:
   debug:
+  file/rotation_with_default_settings:
+    path: /file-exporter/dump.json
+    rotation:
 
 extensions:
   health_check:
@@ -20,12 +23,12 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [debug, file]
 
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [debug, file]
     logs:
       receivers: [otlp]
       processors: [batch]
