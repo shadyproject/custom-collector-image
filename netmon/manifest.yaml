@@ -8,6 +8,7 @@ exporters:
   - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.119.0
 processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.119.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.119.0
 receivers:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/netflowreceiver v0.119.0
 extensions:
