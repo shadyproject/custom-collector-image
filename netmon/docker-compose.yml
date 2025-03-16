@@ -2,10 +2,10 @@ version: '3'
 
 services:
   collector:
-    image: local/collector-custom
+    image: local/collector-netmon
     volumes:
-      - /opt/otel/netmon-config.yaml:/config.yaml
-      - /opt/otel/Geolite2-City_2025_0228/Geolite2-City.mmdb:/maxmind-db
+      - ./config.yaml:/config.yaml
+      - ./Geolite2-City_2025_0228/Geolite2-City.mmdb:/maxmind-db
     ports:
       - "13133:13133"
       - "6343:6343/udp"
