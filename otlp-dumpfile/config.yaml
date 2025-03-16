@@ -23,13 +23,13 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug, file]
+      exporters: [debug, file/rotation_with_default_settings]
 
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug, file]
+      exporters: [debug, file/rotation_with_default_settings]
     logs:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug, file]
+      exporters: [debug, file/rotation_with_default_settings]
