@@ -1,14 +1,6 @@
 receivers:
   netflow:
-  #   - scheme: netflow
-  #     port: 2055
-  #     sockets: 16
-  #     workers: 32
   netflow/sflow:
-  #   - scheme: sflow
-  #     port: 6343
-  #     sockets: 16
-  #     workers: 32
 
 processors:
   batch:
@@ -24,6 +16,7 @@ processors:
     error_mode: ignore
     log_statements:
       - replace_all_patterns(log.attributes, "key", "geo\\.[0-9A-Za-z]+_", "src_geo.$$1")
+      - replace_all_patterns(log.attributes, "key", "geo\\.[0-9A-Za-z]+\\.[0-9A-Za-z]+", "src_geo.$$1")
 
 exporters:
   debug:
