@@ -26,6 +26,10 @@ exporters:
     verbosity: detailed
   otlp:
     endpoint: "api.honeycomb.io:443"
+    headers:
+      # todo: really should move this to an env or something
+      "x-honeycomb-team": "mrx0kVmkQ0hqCOBH8heJmE"
+      "x-honeycomb-dataset": "netmon-src-transform"
 
 extensions:
   health_check:

@@ -10,6 +10,7 @@ services:
       - "13133:13133"
       - "6343:6343/udp"
       - "2055:2055/udp"
-    environment:
-      - OTEL_SERVICE_NAME=geoip-src
-      - OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team={HNY_API_KEY}"
+    # the collector doesn't actually seem to pick these up which is cool.
+    # environment:
+    # - OTEL_SERVICE_NAME=geoip-src
+    # - OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team={HNY_API_KEY}"
