@@ -29,6 +29,7 @@ exporters:
     headers:
       # todo: really should move this to an env or something
       "x-honeycomb-team": "mrx0kVmkQ0hqCOBH8heJmE"
+      # note: setting this here since the docker env method doesn't seem to work whcih is cool
       "x-honeycomb-dataset": "netmon-src-transform"
 
 extensions:
