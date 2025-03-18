@@ -11,4 +11,4 @@ services:
       - "6343:6343/udp"
       - "2055:2055/udp"
     environment:
-      - OTEL_SERVICE_NAME=netmon-src-transform
+      - OTEL_SERVICE_NAME=geoip-src
