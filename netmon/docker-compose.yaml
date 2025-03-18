@@ -12,3 +12,4 @@ services:
       - "2055:2055/udp"
     environment:
       - OTEL_SERVICE_NAME=geoip-src
+      - OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team={HNY_API_KEY}"
