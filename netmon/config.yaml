@@ -26,9 +26,6 @@ exporters:
     verbosity: detailed
   otlp:
     endpoint: "api.honeycomb.io:443"
-    headers:
-      # todo: really should move this to an env or something
-      "x-honeycomb-team": "mrx0kVmkQ0hqCOBH8heJmE"
 
 extensions:
   health_check:
