@@ -20,7 +20,20 @@ processors:
       - delete_key(log.attributes, "geo.location.lat")
       - set(log.attributes["src_geo.location.lon"], log.attributes["geo.location.lon"])
       - delete_key(log.attributes, "geo.location.lon")
-
+  geoip/dst:
+    context: record
+    attributes: [destination.address]
+    providers:
+      maxmind:
+        database_path: /maxmind-db
+  transform/dst:
+    error_mode: ignore
+    log_statements:
+      - replace_all_patterns(log.attributes, "key", "geo\\.([0-9A-Za-z_]+)", "dst_geo.$$1")
+      - set(log.attributes["dst_geo.location.lat"], log.attributes["geo.location.lat"])
+      - delete_key(log.attributes, "geo.location.lat")
+      - set(log.attributes["dst_geo.location.lon"], log.attributes["geo.location.lon"])
+      - delete_key(log.attributes, "geo.location.lon")
 exporters:
   debug:
     verbosity: detailed
@@ -28,9 +41,9 @@ exporters:
     endpoint: "api.honeycomb.io:443"
     headers:
       # todo: really should move this to an env or something
-      "x-honeycomb-team": "mrx0kVmkQ0hqCOBH8heJmE"
+      "x-honeycomb-team": "lolmadeyoulook"
       # note: setting this here since the docker env method doesn't seem to work whcih is cool
-      "x-honeycomb-dataset": "netmon-src-transform"
+      "x-honeycomb-dataset": "netmon-src-dst-transform"
 
 extensions:
   health_check:
@@ -41,7 +54,7 @@ service:
   pipelines:
     logs:
       receivers: [netflow, netflow/sflow]
-      processors: [geoip/src, transform/src, batch]
+      processors: [geoip/src, transform/src, geoip/dst, transform/dst, batch]
       exporters: [debug, otlp]
   telemetry:
     logs:
