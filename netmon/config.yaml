@@ -29,7 +29,7 @@ processors:
   transform/dst:
     error_mode: ignore
     log_statements:
-      - replace_all_patterns(log.attributes, "key", "geo\\.([0-9A-Za-z_]+)", "dst_geo.$$1")
+      - replace_all_patterns(log.attributes, "key", "^geo\\.([0-9A-Za-z_]+)", "dst_geo.$$1")
       - set(log.attributes["dst_geo.location.lat"], log.attributes["geo.location.lat"])
       - delete_key(log.attributes, "geo.location.lat")
       - set(log.attributes["dst_geo.location.lon"], log.attributes["geo.location.lon"])
