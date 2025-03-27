@@ -6,20 +6,6 @@ processors:
   batch:
     send_batch_size: 2000
     timeout: 30s
-  geoip/src:
-    context: record
-    attributes: [source.address]
-    providers:
-      maxmind:
-        database_path: /maxmind-db
-  transform/src:
-    error_mode: ignore
-    log_statements:
-      - replace_all_patterns(log.attributes, "key", "geo\\.([0-9A-Za-z_]+)", "src_geo.$$1")
-      - set(log.attributes["src_geo.location.lat"], log.attributes["geo.location.lat"])
-      - delete_key(log.attributes, "geo.location.lat")
-      - set(log.attributes["src_geo.location.lon"], log.attributes["geo.location.lon"])
-      - delete_key(log.attributes, "geo.location.lon")
   geoip/dst:
     context: record
     attributes: [destination.address]
@@ -43,7 +29,7 @@ exporters:
       # todo: really should move this to an env or something
       "x-honeycomb-team": "lolmadeyoulook"
       # note: setting this here since the docker env method doesn't seem to work whcih is cool
-      "x-honeycomb-dataset": "netmon-src-dst-transform"
+      "x-honeycomb-dataset": "shadynet"
 
 extensions:
   health_check:
@@ -54,7 +40,7 @@ service:
   pipelines:
     logs:
       receivers: [netflow, netflow/sflow]
-      processors: [geoip/src, transform/src, geoip/dst, transform/dst, batch]
+      processors: [geoip/dst, transform/dst, batch]
       exporters: [debug, otlp]
   telemetry:
     logs:
